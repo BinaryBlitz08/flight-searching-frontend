@@ -1,1 +1,68 @@
-<p>history works!</p>
+<div class="max-w-7xl mx-auto p-6 pt-20">
+  <h1 class="text-5xl font-bold text-center mb-12 text-indigo-700">
+    My Booking History 📜
+  </h1>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center py-20">
+    <mat-spinner diameter="60"></mat-spinner>
+    <p class="mt-4 text-xl text-gray-600">Loading your bookings...</p>
+  </div>
+
+  <!-- Bookings List -->
+  <div class="grid gap-8" *ngIf="!loading">
+    <mat-card *ngFor="let b of bookings" class="shadow-2xl hover:shadow-3xl transition-shadow">
+      <mat-card-header>
+        <mat-card-title class="text-2xl font-bold text-indigo-700">
+          PNR: {{ b.pnr }}
+        </mat-card-title>
+        <mat-card-subtitle class="text-lg">
+          Booked on: {{ b.bookingDate || b.createdAt | date:'medium' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content class="py-8">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <p class="text-xl"><strong>Flight:</strong> {{ b.flightId.airline }} • {{ b.flightId.flightNumber }}</p>
+            <p class="text-xl mt-3"><strong>Route:</strong> 
+              {{ b.flightId.departurePlace }} → {{ b.flightId.arrivalPlace }}
+            </p>
+            <p class="text-lg mt-3 text-gray-600">
+              Departure: {{ b.flightId.departureTime | date:'short' }}
+            </p>
+          </div>
+          <div class="text-right">
+            <p class="text-3xl font-bold text-green-600">
+              ₹{{ b.amountPaid }}
+            </p>
+            <p *ngIf="b.amountPaid > b.flightId.basePrice" class="text-red-600 font-bold mt-2">
+              ⚠️ Surge Price Applied (+10%)
+            </p>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions class="px-8 pb-8">
+        <button
+          mat-raised-button
+          color="primary"
+          class="w-full py-4 text-xl font-semibold"
+          (click)="downloadTicket(b.ticketPdfUrl)"
+        >
+          <mat-icon>download</mat-icon>
+          Download Ticket PDF
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && bookings.length === 0" class="text-center py-20">
+    <mat-icon class="text-6xl text-gray-300">flight_takeoff</mat-icon>
+    <p class="text-2xl text-gray-500 mt-6">
+      No bookings yet!<br>
+      Search and book your first flight to see it here.
+    </p>
+  </div>
+</div>
