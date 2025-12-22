@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" class="shadow-lg fixed top-0 z-50">
+  <span class="text-2xl font-bold">✈️ Flight Booker</span>
+
+  <span class="flex-1"></span>
+
+  <div class="hidden md:flex items-center gap-8">
+    <a mat-button routerLink="/" routerLinkActive="font-bold">Search Flights</a>
+    <a mat-button routerLink="/history" routerLinkActive="font-bold">My Bookings</a>
+
+    <div class="bg-white/20 px-4 py-2 rounded-lg text-white">
+      <strong>Wallet: ₹{{ wallet }}</strong>
+    </div>
+
+    <button mat-raised-button color="warn" (click)="logout()">
+      Logout
+    </button>
+  </div>
+
+</mat-toolbar>
+
+<div class="h-16"></div>
