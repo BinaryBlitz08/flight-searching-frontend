@@ -1,1 +1,19 @@
-<p>home works!</p>
+<div class="max-w-7xl mx-auto p-6 pt-20"> <!-- pt-20 to account for fixed navbar -->
+  <h1 class="text-5xl font-bold text-center mb-12 text-indigo-700">
+    Search Flights ✈️
+  </h1>
+
+  <app-search-form (flightsFound)="onFlightsFound($event)"></app-search-form>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+    <app-flight-card
+      *ngFor="let flight of flights"
+      [flight]="flight"
+      (booked)="onFlightsFound(flights)" <!-- Refresh list if needed -->
+    ></app-flight-card>
+  </div>
+
+  <div *ngIf="flights.length === 0" class="text-center mt-20">
+    <p class="text-xl text-gray-500">🔍 Search for flights to see available options</p>
+  </div>
+</div>
