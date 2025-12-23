@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'https://flight-searching-backend.onrender.com'; 
+  private baseUrl = 'https://flight-searching-backend.onrender.com/api'; 
 
   constructor(private http: HttpClient) {}
 
