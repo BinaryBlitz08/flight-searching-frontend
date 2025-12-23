@@ -1,25 +1,31 @@
-# Flight Booking Frontend (Angular)
+# Flight Booking System - Frontend
 
-Modern Angular frontend for flight booking system.
+A modern, responsive flight booking application built with **Angular 20** (standalone components), **Angular Material**, and **Tailwind CSS**.
+
+Live Demo: https://flight-searching-frontend.vercel.app
 
 ## Features
-- Login with JWT
-- Flight search by city + date
-- Real-time surge pricing alerts
-- Wallet balance display
-- Booking confirmation
-- Booking history with downloadable PDF tickets
+
+- User **registration** and **login** with JWT authentication
+- Flight search by origin, destination, and departure date
+- **Dynamic surge pricing** (+10% after 3 booking attempts in 5 minutes)
+- Real-time **wallet balance** display and updates
+- Booking with unique PNR generation
+- **PDF ticket generation** with final price and surge indicator
+- Booking history with option to re-download tickets
+- Fully responsive design (mobile + desktop)
 
 ## Tech Stack
-- Angular 20
-- Angular Material
-- Tailwind CSS
-- Connected to Node.js + MongoDB backend
 
-## Setup
-1. `npm install`
-2. `ng serve`
-3. Login with backend credentials
-4. Start booking!
+- Angular 20 (standalone architecture)
+- Angular Material for UI components
+- Tailwind CSS for styling
+- Node.js + Express backend (MongoDB Atlas)
 
-Backend Repo: https://github.com/yourusername/flight-booking-backend
+## Setup & Run Locally
+
+```bash
+git clone https://github.com/BinaryBlitz08/flight-searching-frontend.git
+cd flight-searching-frontend
+npm install
+ng serve
