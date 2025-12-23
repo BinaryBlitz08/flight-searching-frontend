@@ -52,7 +52,7 @@ export class BookingHistory implements OnInit {
       alert('PDF URL not available');
       return;
     }
-    const fullUrl = 'http://localhost:5000' + pdfUrl; 
+    const fullUrl = 'https://flight-searching-backend.onrender.com' + pdfUrl; 
     window.open(fullUrl, '_blank');
   }
 }
