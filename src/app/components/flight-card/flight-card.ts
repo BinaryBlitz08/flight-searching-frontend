@@ -4,13 +4,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-flight-card',
   standalone: true,
   imports: [
     CommonModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    
   ],
   templateUrl: './flight-card.html',
   styleUrls: ['./flight-card.css']
@@ -22,31 +24,29 @@ export class FlightCard {
   constructor(private api: ApiService) {}
 
   bookFlight() {
-    this.api.bookFlight(this.flight._id).subscribe({
-      next: (res) => {
-        const booking = res.booking || res;
-        alert(`Booking Successful! 🎉\nPNR: ${booking.pnr}\nAmount Paid: ₹${booking.amountPaid}`);
+  this.api.bookFlight(this.flight._id).subscribe({
+    next: (res) => {
+      const booking = res.booking;
+      alert(`Booking Successful! 🎉\nPNR: ${booking.pnr}\nPaid: ₹${booking.amountPaid}`);
 
-        // Surge alert if price is higher than base
-        if (booking.amountPaid > this.flight.basePrice) {
-          alert('⚠️ High Demand! Surge pricing applied (+10%)');
-        }
-
-        // Refresh wallet in navbar
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
-        if (res.user) {
-          user.wallet = res.user.wallet;
-        } else {
-          user.wallet -= booking.amountPaid;
-        }
-        localStorage.setItem('user', JSON.stringify(user));
-
-        this.booked.emit();
-      },
-      error: (err) => {
-        const msg = err.error?.message || 'Booking failed. Try again.';
-        alert('❌ ' + msg);
+      if (booking.amountPaid > this.flight.basePrice) {
+        alert('⚠️ Surge Price Applied (+10%)');
       }
-    });
-  }
+
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (res.user) {
+        user.wallet = res.user.wallet; // if backend returns updated user
+      } else {
+        user.wallet -= booking.amountPaid; // fallback: subtract manually
+      }
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Emit to refresh parent if needed
+      this.booked.emit();
+    },
+    error: (err) => {
+      alert('Booking failed: ' + (err.error?.message || 'Try again'));
+    }
+  });
+}
 }

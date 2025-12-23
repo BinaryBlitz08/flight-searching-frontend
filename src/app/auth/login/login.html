@@ -1,8 +1,9 @@
 <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-  <mat-card class="w-full max-w-md p-8 shadow-2xl">
-    <mat-card-header class="text-center mb-6">
+  <mat-card class="w-full max-w-md p-8 shadow-2xl rounded-2xl">
+
+    <mat-card-header class="text mb-6">
       <mat-card-title class="text-4xl font-bold text-indigo-700">
-        ✈️ Flight Booker
+        ✈️ AirWise
       </mat-card-title>
       <mat-card-subtitle class="text-lg mt-2">
         Login to start booking
@@ -11,12 +12,13 @@
 
     <mat-card-content>
       <form (ngSubmit)="onLogin()">
-        <mat-form-field appearance="outline" class="w-full mb-4">
+
+        <mat-form-field appearance="fill" class="w-full mb-4">
           <mat-label>Email</mat-label>
           <input matInput [(ngModel)]="email" name="email" type="email" required>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-full mb-4">
+        <mat-form-field appearance="fill" class="w-full mb-4">
           <mat-label>Password</mat-label>
           <input matInput [(ngModel)]="password" name="password" type="password" required>
         </mat-form-field>
@@ -25,14 +27,21 @@
           {{ error }}
         </div>
 
-        <button mat-raised-button color="primary" type="submit" class="w-full py-3 text-lg font-semibold">
+        <button mat-raised-button color="primary"
+                type="submit"
+                class="w-full py-3 text-lg font-semibold rounded-xl">
           Login
         </button>
+
       </form>
 
-      <p class="text-center mt-6 text-sm text-gray-600">
-        Use credentials from your backend test user
-      </p>
+      <button mat-button
+              type="button"
+              routerLink="/register"
+              class="w-full mt-4 text-indigo-600 font-semibold">
+        Register here
+      </button>
     </mat-card-content>
+
   </mat-card>
 </div>

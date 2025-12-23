@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ApiService } from '../../services/api';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-search-form',
   standalone: true,
@@ -16,7 +17,8 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatButtonModule
+    MatButtonModule,
+  
   ],
   templateUrl: './search-form.html',
   styleUrls: ['./search-form.css']
@@ -30,10 +32,24 @@ export class SearchForm {
 
   constructor(private api: ApiService) {}
 
-  search() {
-    this.api.searchFlights(this.from, this.to, this.date).subscribe({
-      next: (res) => this.flightsFound.emit(res.flights || res),
-      error: (err) => alert('No flights found or server error')
-    });
-  }
+ loading = false;
+
+search() {
+  this.loading = true;
+  console.log('Searching for:', this.from, this.to, this.date);
+
+  this.api.searchFlights(this.from, this.to, this.date).subscribe({
+    next: (res) => {
+      console.log('API response:', res); 
+      this.flightsFound.emit(res.flights || res || []);
+      this.loading = false;
+    },
+    error: (err) => {
+      console.error('Search error:', err);
+      alert('No flights found or server error');
+      this.flightsFound.emit([]); 
+      this.loading = false;
+    }
+  });
+}
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   imports: [FormsModule,MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,CommonModule],
+    MatButtonModule,CommonModule,RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

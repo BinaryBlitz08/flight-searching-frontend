@@ -1,43 +1,61 @@
-<mat-card class="shadow-xl hover:shadow-2xl transition-shadow">
-  <mat-card-header>
-    <mat-card-title class="text-2xl font-bold text-indigo-700">
-      {{ flight.airline }} • {{ flight.flightNumber }}
+<mat-card class="rounded-2xl shadow-lg hover:shadow-2xl transition-all border border-gray-100">
+
+  <!-- Header -->
+  <mat-card-header class="pb-2">
+    <mat-card-title class="text-xl font-bold text-indigo-700">
+      {{ flight.airline }}
+      <span class="text-sm font-medium text-gray-500">
+        • {{ flight.flightNumber }}
+      </span>
     </mat-card-title>
-    <mat-card-subtitle class="text-lg">
-      {{ flight.departureTime | date:'short' }}
+
+    <mat-card-subtitle class="text-sm text-gray-600">
+      {{ flight.departureTime | date:'EEE, d MMM yyyy' }}
     </mat-card-subtitle>
   </mat-card-header>
 
+  <!-- Content -->
   <mat-card-content class="py-6">
     <div class="flex justify-between items-center">
+
+      <!-- Route -->
       <div>
-        <p class="text-3xl font-bold">
-          {{ flight.departurePlace }} → {{ flight.arrivalPlace }}
-        </p>
-        <p class="text-gray-600 mt-2">
-          Duration: ~2h | Direct
+        <div class="text-2xl font-semibold">
+          {{ flight.departurePlace }}
+          <span class="mx-2 text-indigo-500">→</span>
+          {{ flight.arrivalPlace }}
+        </div>
+
+        <p class="text-gray-500 mt-1 text-sm">
+          {{ flight.departureTime | date:'shortTime' }}
+          • Duration ~2h
+          • Non-stop
         </p>
       </div>
 
+      <!-- Price -->
       <div class="text-right">
-        <p class="text-4xl font-bold text-green-600">
+        <p class="text-3xl font-bold text-green-600">
           ₹{{ flight.basePrice }}
         </p>
-        <p class="text-sm text-gray-500 mt-1">
-          Base Price
+        <p class="text-xs text-gray-500">
+          per passenger
         </p>
       </div>
+
     </div>
   </mat-card-content>
 
+  <!-- Actions -->
   <mat-card-actions class="px-6 pb-6">
     <button
       mat-raised-button
-      color="accent"
-      class="w-full py-3 text-lg font-semibold"
+      color="primary"
+      class="w-full py-3 text-lg font-semibold rounded-xl"
       (click)="bookFlight()"
     >
-      Book Now
+      Book Flight
     </button>
   </mat-card-actions>
+
 </mat-card>

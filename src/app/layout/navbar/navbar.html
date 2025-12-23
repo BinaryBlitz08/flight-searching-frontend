@@ -1,13 +1,26 @@
-<mat-toolbar color="primary" class="shadow-lg fixed top-0 z-50">
-  <span class="text-2xl font-bold">✈️ Flight Booker</span>
+<mat-toolbar color="primary" class="shadow-lg fixed top-0 z-50 w-full">
+  <span class="text-2xl font-bold">✈️ AirWise</span>
 
   <span class="flex-1"></span>
 
   <div class="hidden md:flex items-center gap-8">
-    <a mat-button routerLink="/" routerLinkActive="font-bold">Search Flights</a>
-    <a mat-button routerLink="/history" routerLinkActive="font-bold">My Bookings</a>
+    <a 
+      mat-button 
+      routerLink="/" 
+      routerLinkActive="bg-white/20 rounded-lg"
+      [routerLinkActiveOptions]="{exact: true}"
+    >
+      Search Flights
+    </a>
+    <a 
+      mat-button 
+      routerLink="/history" 
+      routerLinkActive="bg-white/20 rounded-lg"
+    >
+      My Bookings
+    </a>
 
-    <div class="bg-white/20 px-4 py-2 rounded-lg text-white">
+    <div class="bg-white/20 px-6 py-3 rounded-lg text-white">
       <strong>Wallet: ₹{{ wallet }}</strong>
     </div>
 
@@ -16,6 +29,14 @@
     </button>
   </div>
 
+  <div class="flex md:hidden items-center gap-4">
+    <div class="bg-white/20 px-4 py-2 rounded-lg text-white text-sm">
+      ₹{{ wallet }}
+    </div>
+    <button mat-icon-button color="warn" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
 
 <div class="h-16"></div>

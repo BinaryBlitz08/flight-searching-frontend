@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,26 +11,37 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css']
 })
-export class Navbar implements OnInit {
-  user: any = null;
-  wallet = 50000;
+export class Navbar implements OnInit, OnDestroy {
+  wallet: number = 0;  // ← Start with 0, load from storage
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.loadUser();
+    this.loadWallet();
+
+    // Listen for changes from other components (e.g., after booking)
+    window.addEventListener('storage', this.loadWallet.bind(this));
   }
 
-  loadUser() {
+  ngOnDestroy() {
+    window.removeEventListener('storage', this.loadWallet.bind(this));
+  }
+
+  loadWallet() {
     const userData = localStorage.getItem('user');
     if (userData) {
-      this.user = JSON.parse(userData);
-      this.wallet = this.user.wallet || 50000;
+      const user = JSON.parse(userData);
+      this.wallet = user.wallet || 0;  // ← Use actual value, default to 0 if missing
+    } else {
+      this.wallet = 0;
     }
   }
 

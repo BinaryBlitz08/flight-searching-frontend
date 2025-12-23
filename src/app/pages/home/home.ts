@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { SearchForm } from '../../components/search-form/search-form';
 import { FlightCard } from '../../components/flight-card/flight-card';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +16,23 @@ import { CommonModule } from '@angular/common';
 })
 export class Home {
   flights: any[] = [];
+  wallet: number = 50000; // Default
+
+  constructor() {
+    this.loadWallet();
+    // Listen for wallet changes from booking
+    window.addEventListener('storage', () => this.loadWallet());
+  }
+
+  loadWallet() {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      this.wallet = user.wallet || 50000;
+    }
+  }
 
   onFlightsFound(flights: any[]) {
-    this.flights = flights;
+    this.flights = flights || [];
   }
 }

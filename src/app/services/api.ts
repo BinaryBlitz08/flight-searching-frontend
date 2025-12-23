@@ -36,4 +36,7 @@ export class ApiService {
   getBookingHistory(): Observable<any> {
     return this.http.get(`${this.baseUrl}/bookings/history`, { headers: this.getHeaders() });
   }
+  register(name: string, email: string, password: string): Observable<any> {
+  return this.http.post(`${this.baseUrl}/auth/register`, { name, email, password });
+}
 }
