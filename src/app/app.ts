@@ -10,5 +10,16 @@ import { Navbar } from './layout/navbar/navbar';
   styleUrl: './app.css'
 })
 export class App {
+   isLoggedIn = false;
   protected readonly title = signal('flight-booking-frontend');
+   ngOnInit() {
+    this.checkLoginStatus();
+  
+    window.addEventListener('storage', this.checkLoginStatus.bind(this));
+  }
+
+  checkLoginStatus() {
+    const token = localStorage.getItem('token');
+    this.isLoggedIn = !!token; 
+  }
 }

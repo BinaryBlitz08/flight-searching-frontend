@@ -43,9 +43,9 @@ export class Navbar implements OnInit, OnDestroy {
       this.wallet = 0;
     }
   }
-  
+
   logout() {
     localStorage.clear();
-    this.router.navigate(['/login']);
+    window.location.href = '/login';
   }
 }

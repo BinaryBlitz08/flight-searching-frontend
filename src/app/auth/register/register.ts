@@ -58,12 +58,11 @@ export class Register {
       return;
     }
 
-    // Call backend register endpoint
     this.api.register(trimmedName, trimmedEmail, trimmedPassword).subscribe({
       next: (res) => {
         this.success = 'Registration successful! Redirecting to login...';
         this.loading = false;
-        setTimeout(() => this.router.navigate(['/login']), 2000);
+        setTimeout(() => window.location.href = '/login', 2000);
       },
       error: (err) => {
         this.error = err.error?.message || 'Registration failed. Email may already exist.';

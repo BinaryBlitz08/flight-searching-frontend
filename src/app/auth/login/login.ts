@@ -29,8 +29,10 @@ export class Login {
       next: (res) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user || { wallet: 50000 }));
-        this.router.navigate(['/']);
+        window.location.href = '/';
+      
       },
+     
       error: (err) => {
         this.error = err.error.message || 'Invalid email or password';
       }
