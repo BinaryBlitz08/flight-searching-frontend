@@ -27,7 +27,6 @@ export class Navbar implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadWallet();
 
-    // Listen for changes from other components (e.g., after booking)
     window.addEventListener('storage', this.loadWallet.bind(this));
   }
 
@@ -39,12 +38,12 @@ export class Navbar implements OnInit, OnDestroy {
     const userData = localStorage.getItem('user');
     if (userData) {
       const user = JSON.parse(userData);
-      this.wallet = user.wallet || 0;  // ← Use actual value, default to 0 if missing
+      this.wallet = user.wallet || 0;
     } else {
       this.wallet = 0;
     }
   }
-
+  
   logout() {
     localStorage.clear();
     this.router.navigate(['/login']);

@@ -20,7 +20,6 @@ export class Home {
 
   constructor() {
     this.loadWallet();
-    // Listen for wallet changes from booking
     window.addEventListener('storage', () => this.loadWallet());
   }
 

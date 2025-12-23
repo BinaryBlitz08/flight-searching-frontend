@@ -22,8 +22,7 @@ export class FlightCard {
   @Output() booked = new EventEmitter<void>();
 
   constructor(private api: ApiService) {}
-
-  bookFlight() {
+bookFlight() {
   this.api.bookFlight(this.flight._id).subscribe({
     next: (res) => {
       const booking = res.booking;
@@ -34,14 +33,16 @@ export class FlightCard {
       }
 
       const user = JSON.parse(localStorage.getItem('user') || '{}');
-      if (res.user) {
-        user.wallet = res.user.wallet; // if backend returns updated user
+
+      if (res.user && res.user.wallet !== undefined) {
+        user.wallet = res.user.wallet;
       } else {
-        user.wallet -= booking.amountPaid; // fallback: subtract manually
+        user.wallet -= booking.amountPaid;
       }
       localStorage.setItem('user', JSON.stringify(user));
 
-      // Emit to refresh parent if needed
+      window.dispatchEvent(new Event('storage'));
+
       this.booked.emit();
     },
     error: (err) => {
